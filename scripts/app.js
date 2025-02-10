@@ -139,10 +139,6 @@ function reminderOutput(inputArray) {
   document.getElementById('reminders').innerHTML = out;
 } // END reflectionOutput(inputArray)
 
-function decodeJSON(inputFile) {
-  return JSON.parse(atob(inputFile));
-}
-
 current.addEventListener('click', function () {
   currentDate = new Date();
   reflectionOutput(reflectionArray, 0);
