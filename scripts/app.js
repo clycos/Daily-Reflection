@@ -4,6 +4,8 @@
  https://api.jquery.com/jquery.when/
  https://stackoverflow.com/questions/24909006/javascript-get-data-from-json-to-a-global-variable
  https://stackoverflow.com/questions/38963412/getting-next-and-previous-element-of-json-inputArrayay
+ go to https://github.com/clycos/Daily-Reflection/settings/pages to see the github pages settings
+ public url: https://clycos.github.io/Daily-Reflection/
  */
 
 var reflectionArray;
