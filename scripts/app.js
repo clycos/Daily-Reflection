@@ -157,9 +157,13 @@ previous.addEventListener('click', function () {
 
 function readEncodedFile(file, callback) {
   fetch(file)
-    .then((response) => response.json()) // Fetch JSON
+    .then((response) => response.json()) // Fetch encoded JSON
     .then((data) => {
-      const decodedText = atob(data.encoded); // Decode Base64
+      // Decode Base64 properly
+      const decodedText = new TextDecoder('utf-8').decode(
+        Uint8Array.from(atob(data.encoded), (c) => c.charCodeAt(0))
+      );
+
       callback(decodedText);
     })
     .catch((error) => console.error('Error fetching or decoding JSON:', error));
