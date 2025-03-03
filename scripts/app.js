@@ -1,13 +1,3 @@
-/* website used as examples for this app
- https://www.w3schools.com/js/tryit.asp?filename=tryjson_http
- https://www.w3schools.com/js/tryit.asp?filename=tryjson_parse_date
- https://api.jquery.com/jquery.when/
- https://stackoverflow.com/questions/24909006/javascript-get-data-from-json-to-a-global-variable
- https://stackoverflow.com/questions/38963412/getting-next-and-previous-element-of-json-inputArrayay
- go to https://github.com/clycos/Daily-Reflection/settings/pages to see the github pages settings
- public url: https://clycos.github.io/Daily-Reflection/
- */
-
 var reflectionArray;
 var reminderArray;
 var reflectionFile = './data/reflectionse.json';
@@ -47,9 +37,7 @@ function readFile(file, callback) {
 
 function dayToProcess(daysToAdd) {
   currentDate.setDate(currentDate.getDate() + daysToAdd);
-  // console.log('Current Date: ' + currentDate);
   dateToProcess = monthNames[currentDate.getMonth()] + ' ' + currentDate.getDate();
-  // console.log('Date To Process: ' + dateToProcess);
 }
 
 function getAge(dateString) {
@@ -62,82 +50,83 @@ function getAge(dateString) {
   return age;
 }
 
-//loop through reflectionOutput and display results to page
 function reflectionOutput(inputArray, d) {
-  dayToProcess(d); // set current date
-  var out = '<hr />'; //begin output with an HR tag
+  dayToProcess(d);
+  var out = '<hr />';
 
-  // LOOP FOR REFLECTION OUTPUT
-  for (var i = 0; i < inputArray.length; i++) {
-    if (inputArray[i].date === dateToProcess) {
-      // only populate today's quote
-      out += '<h2>' + inputArray[i].date + '</h2>'; //Date Line
-      out += '<h3 class="text-primary text-uppercase">' + inputArray[i].topic + '</h3>'; //Topic Line
-      out += '<div id = "quotes">';
-      for (var j = 0; j < inputArray[i].quotes.length; j++) {
-        out +=
-          '<div id="quote_' +
-          (j + 1) +
-          '">' +
-          '<blockquote class="blockquote">' +
-          '<p>' +
-          '<q>' +
-          inputArray[i].quotes[j].quote +
-          '</q>' +
-          '</p>' +
-          '<footer class="blockquote-footer text-left">' +
-          '<span>' +
-          inputArray[i].quotes[j].author +
-          ', </span>' +
-          '<cite>' +
-          inputArray[i].quotes[j].source +
-          '</cite>' +
-          '</footer>' +
-          '</blockquote>' +
-          '</div>';
+  let dayData = inputArray.find((entry) => entry.date === dateToProcess);
+
+  // If no data found for the day, display a message
+  if (!dayData || !Array.isArray(dayData.topics) || dayData.topics.length === 0) {
+    document.getElementById('reflection_quotes').innerHTML =
+      '<h2>No reflections available for this date.</h2>';
+    return;
+  }
+
+  out += `<h2>${dayData.date}</h2>`;
+
+  // Loop through all topics for the given date
+  for (let i = 0; i < dayData.topics.length; i++) {
+    let topicObj = dayData.topics[i];
+
+    if (!topicObj || !topicObj.topic?.trim()) continue; // Skip empty topics
+
+    // Add extra spacing before each topic except the first one
+    if (i > 0) {
+      out += `<hr>`; // Adds extra horizontal rule
+    }
+
+    out += `<h3 class="text-primary text-uppercase">${topicObj.topic}</h3>`;
+    out += `<div id="quotes">`;
+
+    // Ensure quotes exist for the topic
+    if (Array.isArray(topicObj.quotes) && topicObj.quotes.length > 0) {
+      for (let quote of topicObj.quotes) {
+        if (!quote || !quote.quote?.trim()) continue; // Skip empty quotes
+
+        out += `
+          <div class="quote-block">
+            <blockquote class="blockquote">
+              <p><q>${quote.quote}</q></p>
+              <footer class="blockquote-footer text-left">
+                <span>${quote.author ? quote.author + ', ' : ''}</span>
+                <cite>${quote.source || ''}</cite>
+              </footer>
+            </blockquote>
+          </div>`;
       }
-      out += '<hr />'; // add hard return
-      out += '</div>'; // end div quotes
-      out += '<div id="notes">';
-      out += inputArray[i].notes; //main text of the json
-      out += '</div>'; // end div notes
+    } else {
+      out += '<p class="text-muted">No quotes available for this topic.</p>';
+    }
 
-      // Add additional thoughts if they exist
-      if (inputArray[i].thoughts && inputArray[i].thoughts.length > 0) {
-        out += '<div id="thoughts">';
-        out += '<h3 class="text-primary">Additional Thoughts</h3>';
-        out += inputArray[i].thoughts + '<hr />';
-        out += '</div>'; // end div thoughts
-      } else out += '<hr />'; // add hard return
+    out += `</div>`;
 
-      // code to disable next and previous buttons
-      //next.disabled = (i+1) >= inputArray.length;
-      //next.hidden = (i + 1) >= inputArray.length;
-      //previous.disabled = i <= 0;
-      //previous.hidden = i <= 0;
-    } //end if
-  } //end for loop
+    // Display Notes if available
+    if (topicObj.notes && topicObj.notes.trim()) {
+      out += `<div id="notes"><h4>Notes:</h4>${topicObj.notes}</div>`;
+    }
+
+    // Display Additional Thoughts if available
+    if (topicObj.thoughts && topicObj.thoughts.trim()) {
+      out += `<div id="thoughts"><h4 class="text-primary">Additional Thoughts</h4>${topicObj.thoughts}<hr /></div>`;
+    }
+  }
+
   document.getElementById('reflection_quotes').innerHTML = out;
-} // END reflectionOutput(inputArray)
+}
 
-//loop through reflectionOutput and display results to page
 function reminderOutput(inputArray) {
-  // LOOP FOR REMINDER OUTPUT
   document.getElementById('reminders').style.visibility = 'hidden';
   var out = '<h3 class="text-danger">Reminders</h3>';
   for (var i = 0; i < inputArray.length; i++) {
     if (inputArray[i].date === dateToProcess) {
-      // only populate today's quote
       document.getElementById('reminders').style.visibility = 'visible';
       getAge(dateToProcess + ' ' + inputArray[i].year);
-      out += '<p>';
-      out += inputArray[i].reminder;
-      out += ' (' + inputArray[i].year + ') - ' + age;
-      out += '</p>'; // end div reminder
-    } //end if
-  } //END FOR LOOP
+      out += '<p>' + inputArray[i].reminder + ' (' + inputArray[i].year + ') - ' + age + '</p>';
+    }
+  }
   document.getElementById('reminders').innerHTML = out;
-} // END reflectionOutput(inputArray)
+}
 
 current.addEventListener('click', function () {
   currentDate = new Date();
@@ -159,21 +148,22 @@ function readEncodedFile(file, callback) {
   fetch(file)
     .then((response) => response.json()) // Fetch encoded JSON
     .then((data) => {
-      // Decode Base64 properly
-      const decodedText = new TextDecoder('utf-8').decode(
-        Uint8Array.from(atob(data.encoded), (c) => c.charCodeAt(0))
-      );
+      // Decode Base64 properly using TextDecoder
+      const decodedBytes = Uint8Array.from(atob(data.encoded), (c) => c.charCodeAt(0));
+      const decodedText = new TextDecoder('utf-8').decode(decodedBytes);
 
       callback(decodedText);
     })
     .catch((error) => console.error('Error fetching or decoding JSON:', error));
 }
 
+// Fetch and decode reflections
 readEncodedFile(reflectionFile, function (text) {
   reflectionArray = JSON.parse(text);
   reflectionOutput(reflectionArray, 0);
 });
 
+// Fetch and decode reminders
 readFile(reminderFile, function (text) {
   reminderArray = JSON.parse(text);
   reminderOutput(reminderArray);

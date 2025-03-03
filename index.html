@@ -11,20 +11,20 @@
 </head>
 
 <body>
-    <div class="container">
-
-        <div>
+    <div class="container mt-4">
+        <div class="text-center">
             <h1>Daily Reflection</h1>
         </div>
 
-        <button type="button" class="btn btn-success" id="current">Today</button>
-        <button type="button" class="btn btn-success" id="next">Next</button>
-        <button type="button" class="btn btn-success" id="previous">Previous</button>
+        <div class="text-center my-3">
+            <button type="button" class="btn btn-success mx-1" id="previous">Previous</button>
+            <button type="button" class="btn btn-primary mx-1" id="current">Today</button>
+            <button type="button" class="btn btn-success mx-1" id="next">Next</button>
+        </div>
 
-        <div id="reflection_quotes"></div>
+        <div id="reflection_quotes" class="p-3"></div>
 
-        <div id="reminders"></div>
-
+        <div id="reminders" class="p-3"></div>
     </div>
 
     <script src="./scripts/jquery-3.3.1.slim.min.js"></script>
