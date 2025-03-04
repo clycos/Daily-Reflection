@@ -29,7 +29,7 @@ let touchStartX = 0;
 let touchEndX = 0;
 
 // Minimum swipe distance to register as a swipe
-const minSwipeDistance = 50;
+const minSwipeDistance = 30;
 
 // Function to handle touch start
 document.addEventListener(
