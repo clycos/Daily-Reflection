@@ -39,4 +39,8 @@ body {
     background-color: #1565c0; /* Darker blue */
     border-color: #1565c0;
   }
+
+  hr {
+    border-color: rgba(255, 255, 255, 0.3); /* Light grey in dark mode */
+  }
 }
