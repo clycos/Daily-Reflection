@@ -154,7 +154,7 @@ function reflectionOutput(inputArray, d) {
 
 function reminderOutput(inputArray) {
   let remindersDiv = document.getElementById('reminders');
-  let out = '<h3 class="text-danger">Reminders</h3>';
+  let out = '<hr /><h3 class="text-danger">Reminders</h3>';
   let hasReminders = false;
 
   for (let i = 0; i < inputArray.length; i++) {
