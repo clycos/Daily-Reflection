@@ -4,3 +4,15 @@
     display: none !important;
   }
 }
+
+h2#display-date {
+  margin-bottom: 10px; /* Reduce space between date and buttons */
+}
+
+.text-center.my-3 {
+  margin-bottom: 5px; /* Reduce space between buttons and hr */
+}
+
+hr {
+  margin-top: 5px; /* Reduce space above the hr */
+}
