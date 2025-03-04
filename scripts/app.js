@@ -23,6 +23,48 @@ var monthNames = [
   'December',
 ];
 
+// add swipe event listeners
+// Detect swipe gestures for mobile navigation
+let touchStartX = 0;
+let touchEndX = 0;
+
+// Minimum swipe distance to register as a swipe
+const minSwipeDistance = 50;
+
+// Function to handle touch start
+document.addEventListener(
+  'touchstart',
+  function (event) {
+    touchStartX = event.touches[0].clientX;
+  },
+  false
+);
+
+// Function to handle touch end and determine swipe direction
+document.addEventListener(
+  'touchend',
+  function (event) {
+    touchEndX = event.changedTouches[0].clientX;
+    handleSwipe();
+  },
+  false
+);
+
+function handleSwipe() {
+  let swipeDistance = touchEndX - touchStartX;
+
+  if (Math.abs(swipeDistance) > minSwipeDistance) {
+    if (swipeDistance > 0) {
+      // Swiped right (Previous)
+      previous.click();
+    } else {
+      // Swiped left (Next)
+      next.click();
+    }
+  }
+}
+// End swipe event listeners
+
 function readFile(file, callback) {
   var rawFile = new XMLHttpRequest();
   rawFile.overrideMimeType('application/json');
