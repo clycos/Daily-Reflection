@@ -7,6 +7,7 @@ var previous = document.getElementById('previous');
 var current = document.getElementById('current');
 var currentDate = new Date();
 var dateToProcess;
+let displayDate;
 var age;
 var monthNames = [
   'January',
@@ -98,14 +99,11 @@ function reflectionOutput(inputArray, d) {
 
   let dayData = inputArray.find((entry) => entry.date === dateToProcess);
 
-  // If no data found for the day, display a message
-  if (!dayData || !Array.isArray(dayData.topics) || dayData.topics.length === 0) {
-    document.getElementById('reflection_quotes').innerHTML =
-      '<h2>No reflections available for this date.</h2>';
-    return;
-  }
+  // Update the <h2> with the display date
+  document.querySelector('#display-date').innerText = dateToProcess;
 
-  out += `<h2>${dayData.date}</h2>`;
+  // turn displayDate into something that can be displayed in the html file
+  console.log('blah', displayDate);
 
   // Loop through all topics for the given date
   for (let i = 0; i < dayData.topics.length; i++) {
