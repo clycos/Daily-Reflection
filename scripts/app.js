@@ -102,9 +102,6 @@ function reflectionOutput(inputArray, d) {
   // Update the <h2> with the display date
   document.querySelector('#display-date').innerText = dateToProcess;
 
-  // turn displayDate into something that can be displayed in the html file
-  console.log('blah', displayDate);
-
   // Loop through all topics for the given date
   for (let i = 0; i < dayData.topics.length; i++) {
     let topicObj = dayData.topics[i];
