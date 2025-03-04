@@ -153,16 +153,24 @@ function reflectionOutput(inputArray, d) {
 }
 
 function reminderOutput(inputArray) {
-  document.getElementById('reminders').style.visibility = 'hidden';
-  var out = '<h3 class="text-danger">Reminders</h3>';
-  for (var i = 0; i < inputArray.length; i++) {
+  let remindersDiv = document.getElementById('reminders');
+  let out = '<h3 class="text-danger">Reminders</h3>';
+  let hasReminders = false;
+
+  for (let i = 0; i < inputArray.length; i++) {
     if (inputArray[i].date === dateToProcess) {
-      document.getElementById('reminders').style.visibility = 'visible';
+      hasReminders = true;
       getAge(dateToProcess + ' ' + inputArray[i].year);
-      out += '<p>' + inputArray[i].reminder + ' (' + inputArray[i].year + ') - ' + age + '</p>';
+      out += `<p>${inputArray[i].reminder} (${inputArray[i].year}) - ${age}</p>`;
     }
   }
-  document.getElementById('reminders').innerHTML = out;
+
+  if (hasReminders) {
+    remindersDiv.style.display = 'block'; // Show reminders
+    remindersDiv.innerHTML = out;
+  } else {
+    remindersDiv.style.display = 'none'; // Hide reminders
+  }
 }
 
 current.addEventListener('click', function () {
