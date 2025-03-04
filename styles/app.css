@@ -16,3 +16,27 @@ h2#display-date {
 hr {
   margin-top: 5px; /* Reduce space above the hr */
 }
+
+/* Default Light Theme */
+body {
+  background-color: white;
+  color: black;
+}
+
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: white;
+  }
+
+  .btn-success {
+    background-color: #2e7d32; /* Darker green */
+    border-color: #2e7d32;
+  }
+
+  .btn-primary {
+    background-color: #1565c0; /* Darker blue */
+    border-color: #1565c0;
+  }
+}
