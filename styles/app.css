@@ -1,0 +1,6 @@
+@media (max-width: 480px) {
+  /* Targets only phones */
+  .desktop-buttons {
+    display: none !important;
+  }
+}
