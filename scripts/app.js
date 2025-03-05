@@ -30,7 +30,7 @@ let touchStartX = 0;
 let touchEndX = 0;
 
 // Minimum swipe distance to register as a swipe
-const minSwipeDistance = 50;
+const minSwipeDistance = 120;
 
 // Function to handle touch start
 document.addEventListener(
@@ -62,6 +62,11 @@ function handleSwipe() {
       // Swiped left (Next)
       next.click();
     }
+    // Scroll back to the top of the page
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Smooth scrolling effect
+    });
   }
 }
 // End swipe event listeners
