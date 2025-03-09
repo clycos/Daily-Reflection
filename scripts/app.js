@@ -104,8 +104,11 @@ function reflectionOutput(inputArray, d) {
 
   let dayData = inputArray.find((entry) => entry.date === dateToProcess);
 
-  // Update the <h2> with the display date
-  document.querySelector('#display-date').innerText = dateToProcess;
+  // Get the day of the year for the current date
+  let dayOfYear = getDayOfYear(currentDate);
+
+  // Update the <h2> with the display date and day of the year
+  document.querySelector('#display-date').innerText = `${dateToProcess} (${dayOfYear})`;
 
   // Loop through all topics for the given date
   for (let i = 0; i < dayData.topics.length; i++) {
@@ -155,6 +158,13 @@ function reflectionOutput(inputArray, d) {
   }
 
   document.getElementById('reflection_quotes').innerHTML = out;
+}
+
+function getDayOfYear(date) {
+  const start = new Date(date.getFullYear(), 0, 0); // Start of the year
+  const diff = date - start;
+  const oneDay = 1000 * 60 * 60 * 24;
+  return Math.floor(diff / oneDay);
 }
 
 function reminderOutput(inputArray) {
