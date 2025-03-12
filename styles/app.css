@@ -23,6 +23,10 @@ body {
   color: black;
 }
 
+p {
+  white-space: pre-wrap;
+}
+
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
   body {

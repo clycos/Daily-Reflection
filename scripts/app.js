@@ -153,7 +153,7 @@ function reflectionOutput(inputArray, d) {
 
     // Display Additional Thoughts if available
     if (topicObj.thoughts && topicObj.thoughts.trim()) {
-      out += `<div id="thoughts"><h4 class="text-primary">Additional Thoughts</h4>${topicObj.thoughts}</div>`;
+      out += `<div id="thoughts"><h4 class="text-primary">Additional Thoughts</h4><p>${topicObj.thoughts}</p></div>`;
     }
   }
 
