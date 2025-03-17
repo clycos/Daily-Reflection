@@ -27,6 +27,10 @@ p {
   white-space: pre-wrap;
 }
 
+blockquote {
+  margin-left: 20px; /* Adjust as needed */
+}
+
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
   body {
