@@ -148,7 +148,7 @@ function reflectionOutput(inputArray, d) {
 
     // Display Notes if available
     if (topicObj.notes && topicObj.notes.trim()) {
-      out += `<div id="notes"><h4>Notes:</h4>${topicObj.notes}</div>`;
+      out += `<div id="notes"><h4>Reflection:</h4>${topicObj.notes}</div>`;
     }
 
     // Display Additional Thoughts if available
