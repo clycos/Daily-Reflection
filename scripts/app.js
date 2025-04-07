@@ -1,15 +1,16 @@
-var reflectionArray;
-var reminderArray;
-var reflectionFile = './data/reflectionse.json';
-var reminderFile = './data/reminders.json';
-var next = document.getElementById('next');
-var previous = document.getElementById('previous');
-var current = document.getElementById('current');
-var currentDate = new Date();
-var dateToProcess;
+let reflectionArray;
+let reminderArray;
+const reflectionFile = './data/reflectionse.json';
+const reminderFile = './data/reminders.json';
+let next = document.getElementById('next');
+let previous = document.getElementById('previous');
+let current = document.getElementById('current');
+let currentDate = new Date();
+let dateToProcess;
 let displayDate;
-var age;
-var monthNames = [
+let age;
+let deferredPrompt;
+let monthNames = [
   'January',
   'February',
   'March',
@@ -37,6 +38,32 @@ if ('serviceWorker' in navigator) {
     .register('./service-worker.js')
     .then(() => console.log('Service Worker registered!'));
 }
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Stop Chrome from automatically showing the prompt
+  e.preventDefault();
+  deferredPrompt = e;
+
+  // Show your custom install button
+  const installBtn = document.getElementById('installBtn');
+  if (installBtn) {
+    installBtn.style.display = 'block';
+
+    installBtn.addEventListener('click', () => {
+      installBtn.style.display = 'none';
+      deferredPrompt.prompt();
+
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        } else {
+          console.log('User dismissed the install prompt');
+        }
+        deferredPrompt = null;
+      });
+    });
+  }
+});
 
 // Function to handle touch start
 document.addEventListener(
@@ -78,7 +105,7 @@ function handleSwipe() {
 // End swipe event listeners
 
 function readFile(file, callback) {
-  var rawFile = new XMLHttpRequest();
+  let rawFile = new XMLHttpRequest();
   rawFile.overrideMimeType('application/json');
   rawFile.open('GET', file, true);
   rawFile.onload = function () {
@@ -95,9 +122,9 @@ function dayToProcess(daysToAdd) {
 }
 
 function getAge(dateString) {
-  var birthDate = new Date(dateString);
+  let birthDate = new Date(dateString);
   age = currentDate.getFullYear() - birthDate.getFullYear();
-  var m = currentDate.getMonth() - birthDate.getMonth();
+  let m = currentDate.getMonth() - birthDate.getMonth();
   if (m < 0 || (m === 0 && currentDate.getDate() < birthDate.getDate())) {
     age--;
   }
@@ -106,7 +133,7 @@ function getAge(dateString) {
 
 function reflectionOutput(inputArray, d) {
   dayToProcess(d);
-  var out = '<hr />';
+  let out = '<hr />';
 
   let dayData = inputArray.find((entry) => entry.date === dateToProcess);
 
