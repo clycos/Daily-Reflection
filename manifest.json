@@ -1,6 +1,6 @@
 {
   "name": "Daily Reflection",
-  "short_name": "Reflection",
+  "short_name": "Daily Stoic",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
