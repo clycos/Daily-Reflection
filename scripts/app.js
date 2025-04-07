@@ -32,6 +32,12 @@ let touchEndX = 0;
 // Minimum swipe distance to register as a swipe
 const minSwipeDistance = 120;
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('./service-worker.js')
+    .then(() => console.log('Service Worker registered!'));
+}
+
 // Function to handle touch start
 document.addEventListener(
   'touchstart',
