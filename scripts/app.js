@@ -164,14 +164,20 @@ function reflectionOutput(inputArray, d) {
 
         out += `
     <div class="quote-block">
-      <blockquote class="blockquote">
-        <p><q>${quote.quote}</q></p>
-        <footer class="blockquote-footer text-left">
-          ${quote.author ? `<span>${quote.author}${quote.source ? ',' : ''}</span>` : ''}
-          ${quote.source ? `<cite>${quote.source}</cite>` : ''}
-        </footer>
-      </blockquote>
-    </div>`;
+  <blockquote class="blockquote">
+    <p><q>${quote.quote}</q></p>
+    ${
+      quote.author || quote.source
+        ? `
+      <footer class="blockquote-footer text-left">
+        ${quote.author ? `<span>${quote.author}${quote.source ? ',' : ''}</span>` : ''}
+        ${quote.source ? `<cite>${quote.source}</cite>` : ''}
+      </footer>
+    `
+        : ''
+    }
+  </blockquote>
+</div>`;
       }
     } else {
       out += '<p class="text-muted">No quotes available for this topic.</p>';
