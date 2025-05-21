@@ -193,10 +193,11 @@ function reflectionOutput(inputArray, d) {
 }
 
 function getDayOfYear(date) {
-  const start = new Date(date.getFullYear(), 0, 0); // Start of the year
-  const diff = date - start;
+  const start = Date.UTC(date.getUTCFullYear(), 0, 0); // Jan 0 = Dec 31 of previous year
+  const current = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
   const oneDay = 1000 * 60 * 60 * 24;
-  return Math.floor(diff / oneDay);
+  console.log(Math.floor((current - start) / oneDay));
+  return Math.floor((current - start) / oneDay);
 }
 
 function reminderOutput(inputArray) {
