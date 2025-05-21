@@ -161,26 +161,19 @@ function reflectionOutput(inputArray, d) {
     if (Array.isArray(topicObj.quotes) && topicObj.quotes.length > 0) {
       for (let quote of topicObj.quotes) {
         if (!quote || !quote.quote?.trim()) continue; // Skip empty quotes
-
         out += `
-    <div class="quote-block">
   <blockquote class="blockquote">
-    <p><q>${quote.quote}</q></p>
+    <p>${quote.author || quote.source ? `<q>${quote.quote}</q>` : quote.quote}</p>
     ${
       quote.author || quote.source
-        ? `
-      <footer class="blockquote-footer text-left">
-        ${quote.author ? `<span>${quote.author}${quote.source ? ',' : ''}</span>` : ''}
-        ${quote.source ? `<cite>${quote.source}</cite>` : ''}
-      </footer>
-    `
+        ? `<footer class="blockquote-footer text-left">
+            ${quote.author ? `<span>${quote.author}${quote.source ? ',' : ''}</span>` : ''}
+            ${quote.source ? `<cite>${quote.source}</cite>` : ''}
+          </footer>`
         : ''
     }
-  </blockquote>
-</div>`;
+  </blockquote>`;
       }
-    } else {
-      out += '<p class="text-muted">No quotes available for this topic.</p>';
     }
 
     out += `</div>`;
