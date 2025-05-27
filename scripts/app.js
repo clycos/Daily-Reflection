@@ -156,8 +156,8 @@ function reflectionOutput(inputArray, d) {
 
     // Determine theme-based icon before building the string
     let themeIcon = window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'images/icon-192-b.png'
-      : 'images/icon-192.png';
+      ? 'images/stoic-icon-192-dark-theme.png'
+      : 'images/stoic-icon-192-white-theme.png';
 
     out += `<h3 class="text-primary text-uppercase">`;
     if (i === 0) {
