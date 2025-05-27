@@ -154,12 +154,16 @@ function reflectionOutput(inputArray, d) {
       out += `<hr>`; // Adds extra horizontal rule
     }
 
+    // Determine theme-based icon before building the string
+    let themeIcon = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'images/icon-192-b.png'
+      : 'images/icon-192.png';
+
     out += `<h3 class="text-primary text-uppercase">`;
     if (i === 0) {
-      out += `<img src="images/stoic_icon.svg" alt="Stoic Icon" style="height: 1em; vertical-align: middle; margin-right: 0.4em;">`;
+      out += `<img src="${themeIcon}" alt="Stoic Icon" style="height: 1em; vertical-align: middle; margin-right: 0.4em;">`;
     }
     out += `${topicObj.topic}</h3>`;
-    out += `<div id="quotes">`;
 
     // Ensure quotes exist for the topic
     if (Array.isArray(topicObj.quotes) && topicObj.quotes.length > 0) {
