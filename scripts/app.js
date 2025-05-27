@@ -165,6 +165,10 @@ function reflectionOutput(inputArray, d) {
 
     let taoistIcon = 'images/yin-yang.png';
 
+    let leadershipIcon = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'images/leadership-dark-theme.png'
+      : 'images/leadership-light-theme.png';
+
     out += `<h3 class="text-primary text-uppercase">`;
     if (i === 0) {
       out += `<img src="${stoicIcon}" alt="Stoic Icon" style="height: 1em; vertical-align: middle; margin-right: 0.4em;">`;
@@ -172,6 +176,8 @@ function reflectionOutput(inputArray, d) {
       out += `<img src="${dharmaIcon}" alt="Dharma Icon" style="height: 1em; vertical-align: middle; margin-right: 0.4em;">`;
     } else if (i === 2) {
       out += `<img src="${taoistIcon}" alt="Taoist Icon" style="height: 1em; vertical-align: middle; margin-right: 0.4em;">`;
+    } else if (i === 3) {
+      out += `<img src="${leadershipIcon}" alt="Leadership Icon" style="height: 1em; vertical-align: middle; margin-right: 0.4em;">`;
     }
     out += `${topicObj.topic}</h3>`;
 
