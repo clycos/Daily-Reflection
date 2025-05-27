@@ -155,13 +155,19 @@ function reflectionOutput(inputArray, d) {
     }
 
     // Determine theme-based icon before building the string
-    let themeIcon = window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'images/stoic-icon-192-dark-theme.png'
-      : 'images/stoic-icon-192-white-theme.png';
+    let stoicIcon = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'images/stoic-dark-theme.png'
+      : 'images/stoic-light-theme.png';
+
+    let dharmaIcon = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'images/dharma-wheel-dark-theme.png'
+      : 'images/dharma-wheel-light-theme.png';
 
     out += `<h3 class="text-primary text-uppercase">`;
     if (i === 0) {
-      out += `<img src="${themeIcon}" alt="Stoic Icon" style="height: 1em; vertical-align: middle; margin-right: 0.4em;">`;
+      out += `<img src="${stoicIcon}" alt="Stoic Icon" style="height: 1em; vertical-align: middle; margin-right: 0.4em;">`;
+    } else if (i === 1) {
+      out += `<img src="${dharmaIcon}" alt="Dharma Icon" style="height: 1em; vertical-align: middle; margin-right: 0.4em;">`;
     }
     out += `${topicObj.topic}</h3>`;
 
