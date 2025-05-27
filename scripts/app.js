@@ -163,11 +163,15 @@ function reflectionOutput(inputArray, d) {
       ? 'images/dharma-wheel-dark-theme.png'
       : 'images/dharma-wheel-light-theme.png';
 
+    let taoistIcon = 'images/yin-yang.png';
+
     out += `<h3 class="text-primary text-uppercase">`;
     if (i === 0) {
       out += `<img src="${stoicIcon}" alt="Stoic Icon" style="height: 1em; vertical-align: middle; margin-right: 0.4em;">`;
     } else if (i === 1) {
       out += `<img src="${dharmaIcon}" alt="Dharma Icon" style="height: 1em; vertical-align: middle; margin-right: 0.4em;">`;
+    } else if (i === 2) {
+      out += `<img src="${taoistIcon}" alt="Taoist Icon" style="height: 1em; vertical-align: middle; margin-right: 0.4em;">`;
     }
     out += `${topicObj.topic}</h3>`;
 
